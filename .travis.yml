@@ -1,3 +1,5 @@
+os: linux
+dist: bionic
 language: python
 python: 
   - "3.8"
@@ -5,6 +7,13 @@ python:
 install: 
   - pip install torch==1.4
   - pip install -e .
-  - pip install pytest pytest-xdist
+  - pip install pytest==6.0.0 pytest-xdist
 
-script: pytest -v -x tests
+jobs:
+  include:
+    - stage: "Tests"                # naming the Tests stage
+      name: "Parallel 1"            # names the first Tests stage job
+      script: pytest -v --durations=0 tests          
+    - name: "Parallel 2"
+      script: pytest -v -n 2 --durations=0 tests
+    
