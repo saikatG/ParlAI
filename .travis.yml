@@ -7,4 +7,4 @@ install:
   - pip install -e .
   - pip install pytest pytest-xdist
 
-script: pytest -v -x .
+script: pytest -v -x tests
